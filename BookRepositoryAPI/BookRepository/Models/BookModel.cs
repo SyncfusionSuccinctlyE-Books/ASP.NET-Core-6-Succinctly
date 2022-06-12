@@ -10,6 +10,7 @@ namespace BookRepository.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string Publisher { get; set; }
+        //[Required]
         public string Author { get; set; }
     }
 }
