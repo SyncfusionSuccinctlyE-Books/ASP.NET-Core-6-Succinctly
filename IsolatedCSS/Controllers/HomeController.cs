@@ -1,9 +1,8 @@
-﻿using EssentialCSharp10.Models;
+﻿using IsolatedCSS.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-//using EssentialCSharp10.Helpers;
 
-namespace EssentialCSharp10.Controllers
+namespace IsolatedCSS.Controllers
 {
     public class HomeController : Controller
     {
@@ -12,10 +11,6 @@ namespace EssentialCSharp10.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-
-            string strValue = "This is a string";
-            var sanitizedString = CommonHelperMethods.SanitizeString(strValue);
-            
         }
 
         public IActionResult Index()
