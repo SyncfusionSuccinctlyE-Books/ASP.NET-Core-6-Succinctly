@@ -58,6 +58,11 @@ namespace BookRepository
                     , new QueryStringApiVersionReader("version", "ver", "v"));
                 //o.ApiVersionReader = new UrlSegmentApiVersionReader();
             });
+
+            _ = services.AddHttpLogging(log =>
+            {
+                log.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +74,8 @@ namespace BookRepository
                 _ = app.UseSwagger();
                 _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookRepository v1"));
             }
+
+            _ = app.UseHttpLogging();
 
             _ = app.UseHttpsRedirection();
 
