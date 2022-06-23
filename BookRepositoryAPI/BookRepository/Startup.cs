@@ -62,6 +62,7 @@ namespace BookRepository
             _ = services.AddHttpLogging(log =>
             {
                 log.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All;
+
             });
         }
 
@@ -74,6 +75,12 @@ namespace BookRepository
                 _ = app.UseSwagger();
                 _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookRepository v1"));
             }
+
+            _ = app.Use(async (context, next) =>
+            {
+                context.Request.Headers.AcceptLanguage = "en-US";
+                await next.Invoke(context);
+            });
 
             _ = app.UseHttpLogging();
 
