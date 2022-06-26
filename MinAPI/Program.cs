@@ -1,7 +1,17 @@
+using BookRepository.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddScoped<IBookData, SqlData>();
+builder.Services.AddDbContextPool<BookRepoDbContext>(dbContextOptns =>
+{
+    _ = dbContextOptns.UseSqlServer(builder.Configuration.GetConnectionString("BookConn"));
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -15,6 +25,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+
+app.MapGet("/listbooks", (IBookData service) =>
+{
+    return service.ListBooksAsync();
+})
+.WithName("List Books");
+
 
 var summaries = new[]
 {
