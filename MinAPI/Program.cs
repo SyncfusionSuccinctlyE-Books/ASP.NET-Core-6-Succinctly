@@ -1,3 +1,4 @@
+using BookRepository.Core;
 using BookRepository.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,11 +28,17 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
-app.MapGet("/listbooks", (IBookData service) =>
+app.MapGet("/listbooks", async (IBookData service) =>
 {
-    return service.ListBooksAsync();
+    return await service.ListBooksAsync();
 })
 .WithName("List Books");
+
+app.MapPost("/book", async (Book book, IBookData service) =>
+{
+    _ = await service.SaveAsync(book);
+})
+.WithName("Add Book");
 
 
 var summaries = new[]
