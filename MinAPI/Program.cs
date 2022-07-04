@@ -1,5 +1,6 @@
 using BookRepository.Core;
 using BookRepository.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +46,19 @@ app.MapPut("/updatebook", async (Book book, IBookData service) =>
     _ = await service.UpdateAsync(book);
 })
 .WithName("Update Book");
+
+app.MapDelete("/deletebook", async ([FromBody]Book book, IBookData service) =>
+{
+    _ = await service.DeleteAsync(book);
+})
+.WithName("Delete Book");
+
+app.MapDelete("/deletebook/{id}", async (int id, IBookData service) =>
+{
+    var result = await service.DeleteAsync(id);    
+    return result ? Results.Ok() : Results.NotFound();    
+})
+.WithName("Delete Book by ID");
 
 
 var summaries = new[]

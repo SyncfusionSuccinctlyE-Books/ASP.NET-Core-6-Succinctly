@@ -126,5 +126,10 @@ namespace BookRepository.Data
             return (await _database.SaveChangesAsync() > 0);
         }
 
+        public async Task<bool> DeleteAsync(int Id)
+        {
+            var bookEntity = await GetBookAsync(Id);
+            return bookEntity != null ? await DeleteAsync(bookEntity) : throw new KeyNotFoundException($"Book with ID {Id} not found");
+        }        
     }
 }

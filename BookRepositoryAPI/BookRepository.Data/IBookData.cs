@@ -17,5 +17,7 @@ namespace BookRepository.Data
         Task<bool> UpdateAsync<T>(T entity) where T : IEntity;
 
         Task<bool> DeleteAsync<T>(T entity) where T : IEntity;
+
+        Task<bool> DeleteAsync(int Id);
     }
 }
