@@ -40,6 +40,12 @@ app.MapPost("/book", async (Book book, IBookData service) =>
 })
 .WithName("Add Book");
 
+app.MapPut("/updatebook", async (Book book, IBookData service) =>
+{
+    _ = await service.UpdateAsync(book);
+})
+.WithName("Update Book");
+
 
 var summaries = new[]
 {
