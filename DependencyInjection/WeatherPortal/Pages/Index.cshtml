@@ -1,0 +1,33 @@
+﻿@page
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Weather Portal</h1>
+    <p>The weather for the following stations.</p>
+</div>
+
+<div>
+    @foreach(var m in @Model.WeatherResults.result)
+    {
+        <div><strong>Station:</strong> @m.station_details.station_name</div>
+        <div><strong>Latitude:</strong> @m.station_details.latitude</div>
+        <div><strong>Longitude:</strong> @m.station_details.longitude</div>
+
+        foreach(var r in @m.station_readings)
+        {
+            <div><strong>Date and Time:</strong> @r.datetime</div>
+            <div><strong>Temperature</strong>: @r.temperature</div>
+            <div><strong>Humidity:</strong> @r.humidity</div>
+            <div><strong>Pressure:</strong> @r.pressure</div>
+            <div><strong>Wind Direction:</strong> @r.wind_direction</div>
+            <div><strong>Wind Speed:</strong> @r.wind_speed</div>
+            <div><strong>Last Hours Rainfall:</strong> @r.last_hours_rainfall</div>
+        }
+        <hr />
+    }
+</div>
